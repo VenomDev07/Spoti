@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Inter Tight';
+}
+
+body{
+  color: white;
+}
+/* SCROLL BAR  */
+#scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+#scroll::-webkit-scrollbar-thumb {
+  background: rgb(255, 255, 255,0.4); /* Thumb color */
+  border-radius: 3px;
+}
+
+#scroll::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+}
+
+/* ===================== SCROLL 2 =============================== */
+
+#scroll-2::-webkit-scrollbar {
+  width: 3px;
+}
+
+#scroll-2::-webkit-scrollbar-thumb {
+  background: rgb(255, 255, 255,0.4); /* Thumb color */
+  border-radius: 3px;
+}
+
+#scroll-2::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+}
+
+
+webkit-scrollbar-track {
+  background: transparent; /* Track color */
+}
+
+/* ==================== SCROLL INV =============================== */
+
+#inv-scroll::-webkit-scrollbar {
+  width: 0;
+}
+
+#inv-scroll::-webkit-scrollbar-thumb {
+  background:transparent; /* Thumb color */
+  border-radius: 3px;
+}
+
+#inv-scroll::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+}
+
+
+webkit-scrollbar-track {
+  background: transparent; /* Track color */
+}
+
+/* ======================= FOR DESKTOP SCREEN ============================ */
+
+#container1{
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3,2fr);
+  grid-template-rows: 75px repeat(2,1fr) 80px;
+  justify-content: center;
+  grid-template-areas: 
+    "   header     header     header     header   "
+    "   sidebar     main     main     main2   "
+    "   sidebar     main     main     main2   "
+    "   player     player     player     player   "
+  ;
+}
+
+#header{
+  grid-area: header;
+}
+
+#sidebar{
+  grid-area: sidebar;
+}
+
+#player{
+  grid-area: player;
+  
+}
+
+#main{
+  grid-area: main;
+  
+}
+
+#main2{
+  grid-area: main2;
+}
+
+
+
+/* ======================== FOR SMALL DEVICES =========================== */
+
+#container2{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 75px 1fr 75px 80px;
+
+  grid-template-areas: 
+    "   header2    header2      header2  "
+    "   main-con2  main-con2    main-con2   "
+    "   player2    player2      player2   "
+    "   tabs       tabs         tabs   "
+  ;
+}
+
+#header2{
+  grid-area: header2;
+}
+
+#main-con2{
+  grid-area: main-con2;
+  
+}
+
+#player2{
+  grid-area: player2;
+}
+
+#tabs{
+  grid-area: tabs;
+}
+
+@media (max-width: 979px) {
+  #container1{
+    display: none;
+  }
+}
+
+@media (min-width: 979px) {
+  #container2{
+    display: none;
+  }
+}
+
+ @media (max-width: 947px) {
+  #header-con{
+    display: none;
+  }
+}
+
+/* =========== Player CSS =========== */
+
+#playerGrid{
+  display: grid;
+  height: 100%;
+  grid-template-columns: 0.4fr 1fr 0.5fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 
+    " songInfo   player   playerSettings "
+    " songInfo   player   playerSettings "
+  ;
+}
+
+#songInfo{
+  grid-area: songInfo;
+}
+
+#player{
+  grid-area: player;
+}
+
+.player-parent:hover .player-child{
+  background-color: rgb(74 222 128)
+}
+
+#playerSettings{
+  grid-area: playerSettings;
+}
+
+/* =========== Home CSS ============= */
+
+.home-color{
+  background-image: linear-gradient(rgba(140, 0, 255, 0.5), rgba(0, 0, 0, 0.5));
+}
+
