@@ -47,9 +47,22 @@ function Home2() {
                 </div>
               </div>
               
-              <div className='h-[30%] rounded-md my-3 bg-[rgba(65,62,62,0.3)]'>
-
+              <div className='pb-2'>
+                <div className='h-fit p-3  rounded-md my-3 bg-[rgba(65,62,62,0.3)]'>
+                  <div className='flex items-center justify-between '>
+                    <h1 className='text-[15px] font-bold'>Next in queue</h1>
+                    <h1 className='text-sm font-semibold hover:scale-[1.02] text-[#b3b3b3] hover:underline'>Open queue</h1>
+                  </div>
+                  <div className='inline-flex gap-2 mt-3'>
+                    <img className='w-14 h-14 rounded-md' src={songsData[2].image} alt="" />
+                    <div className='w-[60%]'>
+                      <p className='font-semibold text-base '>{songsData[2].name}</p>
+                      <p className='font-semibold text-[#b3b3b3] text-sm whitespace-nowrap overflow-ellipsis overflow-hidden'>{songsData[2].desc}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
+              
             </div>
           </div>
         </div>
