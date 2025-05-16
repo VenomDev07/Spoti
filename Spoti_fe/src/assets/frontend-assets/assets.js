@@ -44,6 +44,7 @@ import img16 from './img16.jpg'
 import song1 from  './song1.mp3'
 import song2 from  './song2.mp3'
 import song3 from  './song3.mp3'
+import green_pause_icon from './pause_green_icon.png'
 
 export const assets = {
     bell_icon,
@@ -72,7 +73,8 @@ export const assets = {
     clock_icon,
     spotify_play,
     list_icon,
-    liked_songs
+    liked_songs,
+    green_pause_icon
 }
 
 export const albumsData = [
@@ -142,70 +144,164 @@ export const albumsData = [
 ]
 
 export const songsData = [
-    {
-        id:0,
-        name: "Song One",
+        {
+        id: 1,
+        name: "Lose Yourself",
+        artist: "Eminem",
         image: img1,
-        file:song1,
-        desc:"Put a smile on your face with these happy tunes",
-        duration:"3:00",
-        author: "Juice World"
+        file: song1,
+        desc: "Eminem's Oscar-winning anthem about seizing every moment. Raw, intense, and motivational.",
+        duration: "5:26",
+        dateAdded: "Nov 19, 2024"
     },
     {
-        id:1,
-        name: "Song Two",
+        id: 2,
+        name: "Doja",
+        artist: "Central Cee",
         image: img2,
-        file:song2,
-        desc:"Put a smile on your face with these happy tunes",
-        duration:"2:20",
-        author: "XXX TENTACTION"
+        file: song2,
+        desc: "Central Cee's viral hit that blends clever UK rap bars with a catchy hook.",
+        duration: "1:37",
+        dateAdded: "Nov 20, 2024"
     },
     {
-        id:2,
-        name: "Song Three",
+        id: 3,
+        name: "Blinding Lights",
+        artist: "The Weeknd",
         image: img3,
-        file:song3,
-        desc:"Put a smile on your face with these happy tunes",
-        duration:"2:32"
+        file: song3,
+        desc: "The Weeknd's retro-pop banger that revives the '80s with a modern twist.",
+        duration: "3:20",
+        dateAdded: "Nov 21, 2024"
     },
     {
-        id:3,
-        name: "Song Four",
+        id: 4,
+        name: "God's Plan",
+        artist: "Drake",
         image: img4,
-        file:song1,
-        desc:"Put a smile on your face with these happy tunes",
-        duration:"2:50"
+        file: song1,
+        desc: "Drake delivers an anthem of gratitude, purpose, and success with global appeal.",
+        duration: "3:18",
+        dateAdded: "Nov 22, 2024"
     },
     {
-        id:4,
-        name: "Song Five",
+        id: 5,
+        name: "Shake It Off",
+        artist: "Taylor Swift",
         image: img5,
-        file:song2,
-        desc:"Put a smile on your face with these happy tunes",
-        duration:"3:10"
+        file: song2,
+        desc: "Taylor Swift’s fun, upbeat track encouraging self-love and ignoring the haters.",
+        duration: "3:39",
+        dateAdded: "Nov 23, 2024"
     },
     {
-        id:5,
-        name: "Song Six",
-        image: img14    ,
-        file:song3,
-        desc:"Put a smile on your face with these happy tunes",
-        duration:"2:45"
+        id: 6,
+        name: "Not Afraid",
+        artist: "Eminem",
+        image: img6,
+        file: song3,
+        desc: "Eminem’s powerful comeback track about overcoming fear and adversity.",
+        duration: "4:10",
+        dateAdded: "Nov 24, 2024"
     },
     {
-        id:6,
-        name: "Song Seven",
+        id: 7,
+        name: "Sprinter",
+        artist: "Central Cee & Dave",
         image: img7,
-        file:song1,
-        desc:"Put a smile on your face with these happy tunes",
-        duration:"2:18"
+        file: song1,
+        desc: "Central Cee & Dave team up in this track about speed, success, and street smarts.",
+        duration: "3:49",
+        dateAdded: "Nov 25, 2024"
     },
     {
-        id:7,
-        name: "Song Eight",
+        id: 8,
+        name: "Starboy",
+        artist: "The Weeknd ft. Daft Punk",
+        image: img8,
+        file: song2,
+        desc: "The Weeknd and Daft Punk craft a dark, glamorous track on fame and transformation.",
+        duration: "3:50",
+        dateAdded: "Nov 26, 2024"
+    },
+    {
+        id: 9,
+        name: "In My Feelings",
+        artist: "Drake",
+        image: img9,
+        file: song3,
+        desc: "Drake’s viral hit with a bouncy beat and heartfelt lyrics that inspired a dance craze.",
+        duration: "3:37",
+        dateAdded: "Nov 27, 2024"
+    },
+    {
+        id: 10,
+        name: "Love Story",
+        artist: "Taylor Swift",
+        image: img10,
+        file: song1,
+        desc: "Taylor Swift retells Romeo & Juliet in a country-pop twist full of longing and hope.",
+        duration: "3:55",
+        dateAdded: "Nov 28, 2024"
+    },
+    {
+        id: 11,
+        name: "Without Me",
+        artist: "Eminem",
+        image: img11,
+        file: song2,
+        desc: "Eminem's playful, chaotic take on fame and media obsession, full of sharp bars.",
+        duration: "4:50",
+        dateAdded: "Nov 29, 2024"
+    },
+    {
+        id: 12,
+        name: "Let Go",
+        artist: "Central Cee",
         image: img12,
-        file:song2,
-        desc:"Put a smile on your face with these happy tunes",
-        duration:"2:35"
+        file: song3,
+        desc: "Central Cee raps vulnerably about relationships and past trauma in this emotional track.",
+        duration: "2:50",
+        dateAdded: "Nov 30, 2024"
+    },
+    {
+        id: 13,
+        name: "Save Your Tears",
+        artist: "The Weeknd",
+        image: img13,
+        file: song1,
+        desc: "A synth-laced heartbreak anthem from The Weeknd, dripping with nostalgia.",
+        duration: "3:36",
+        dateAdded: "Dec 1, 2024"
+    },
+    {
+        id: 14,
+        name: "One Dance",
+        artist: "Drake ft. Wizkid & Kyla",
+        image: img14,
+        file: song2,
+        desc: "Drake’s dancehall-inspired summer hit with global rhythms and smooth vibes.",
+        duration: "2:54",
+        dateAdded: "Dec 2, 2024"
+    },
+    {
+        id: 15,
+        name: "Cruel Summer",
+        artist: "Taylor Swift",
+        image: img15,
+        file: song3,
+        desc: "Taylor Swift's euphoric synth-pop love song full of tension and release.",
+        duration: "2:58",
+        dateAdded: "Dec 3, 2024"
+    },
+    {
+        id: 16,
+        name: "Mockingbird",
+        artist: "Eminem",
+        image: img16,
+        file: song1,
+        desc: "Eminem’s emotional letter to his daughter Hailie — heartfelt and honest.",
+        duration: "4:11",
+        dateAdded: "Dec 4, 2024"
     }
 ]

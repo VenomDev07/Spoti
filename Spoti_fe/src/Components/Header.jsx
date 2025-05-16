@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom'
 
 function Header() {
 
-  const navigate = useNavigate
+  const navigate = useNavigate()
   
   return (
     <div className='p-2 h-full flex justify-between items-center'>
         <div className='flex items-center gap-6 min-w-[200px] w-[600px] max-w-[600px]  '>
           <img className='w-8 h-8 rounded-full ml-5 cursor-pointer' src={assets.spotify_logo} alt="" />
-          <img className='w-8 h-8 rounded-full cursor-pointer' src={assets.home_icon} alt="" />
+          <img className='w-8 h-8 rounded-full cursor-pointer' onClick={() => navigate('/')} src={assets.home_icon} alt="" />
           <input className='h-12 w-[100%] px-4 flex rounded-full bg-[#242424]' type="text" placeholder='What do you want to play ?' />
         </div>
         <div className='flex items-center gap-6' id='header-con'>

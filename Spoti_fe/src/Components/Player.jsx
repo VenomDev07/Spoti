@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { albumsData, assets } from '../assets/frontend-assets/assets'
 
 function Player() {
+  const [play, setPlay] = useState(false)
   return (
     <div id='playerGrid'>
         <div className='flex p-3 items-center h-full' id='songInfo'>
@@ -16,16 +17,19 @@ function Player() {
             <div className='h-[55%] bg-black inline-flex gap-5 justify-center items-center pt-4'>
               <img className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.shuffle_icon} alt="" />
               <img className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.prev_icon} alt="" />
-              <img className='w-[18px] h-[18px] cursor-pointer hover:scale-[1.05] ' src={assets.play_icon} alt="" />
+              {play ? <img onClick={() => setPlay(false)} className='w-[18px] h-[18px] cursor-pointer hover:scale-[1.05] ' src={assets.pause_icon} alt="" />  :
+                      <img onClick={() => setPlay(true)} className='w-[18px] h-[18px] cursor-pointer hover:scale-[1.05] ' src={assets.play_icon} alt="" />
+              }
+              
               <img className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.next_icon} alt="" />
               <img className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.loop_icon} alt="" />
             </div>
             <div className='inline-flex h-[45%] justify-center gap-2 bg-black items-center '>
-              <p className='text-sm font-semibold'>00:00</p>
+              <p className='text-xs text-[#b3b3b3] font-medium'>0:00</p>
               <div className='inline-flex h-[3.4px] w-[68%] rounded-full bg-gray-500 player-parent cursor-pointer'>
                 <div className='inline-flex h-[3.4px] w-[80%] rounded-full bg-white player-child hover:bg-green-400 '></div>
               </div>
-              <p className='text-sm font-semibold'>4:34</p>
+              <p className='text-xs text-[#b3b3b3] font-medium'>4:34</p>
             </div>
           </div>
         </div>

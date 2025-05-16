@@ -30,8 +30,8 @@ function TooltipWrapper({ children, title, className }) {
     },500)
   };
 
-  const handleMouseLeave = () => {
-    setVisible(false);
+  const handleMouseLeave = async () => {
+    await setVisible(false);
   };
 
   return (

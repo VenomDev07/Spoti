@@ -53,7 +53,7 @@ function Home2() {
                     <h1 className='text-[15px] font-bold'>Next in queue</h1>
                     <h1 className='text-sm font-semibold hover:scale-[1.02] text-[#b3b3b3] hover:underline'>Open queue</h1>
                   </div>
-                  <div className='inline-flex gap-2 mt-3'>
+                  <div className='flex gap-2 mt-3'>
                     <img className='w-14 h-14 rounded-md' src={songsData[2].image} alt="" />
                     <div className='w-[60%]'>
                       <p className='font-semibold text-base '>{songsData[2].name}</p>

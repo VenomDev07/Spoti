@@ -18,15 +18,15 @@ body{
 }
 
 #scroll::-webkit-scrollbar-thumb {
-  background: rgb(255, 255, 255,0.4); /* Thumb color */
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.319); /* Thumb color */
+  border-radius: 2px;
 }
 
 #scroll::-webkit-scrollbar-track {
   background: transparent; /* Track color */
 }
 
-/* ===================== SCROLL 2 =============================== */
+/* ===================== SCROLL 2 ===================== */
 
 #scroll-2::-webkit-scrollbar {
   width: 3px;
@@ -166,6 +166,7 @@ webkit-scrollbar-track {
     " songInfo   player   playerSettings "
     " songInfo   player   playerSettings "
   ;
+  justify-content: center;
 }
 
 #songInfo{
@@ -189,4 +190,6 @@ webkit-scrollbar-track {
 .home-color{
   background-image: linear-gradient(rgba(140, 0, 255, 0.5), rgba(0, 0, 0, 0.5));
 }
+
+/* =========== Album CSS ============= */
 
