@@ -27,6 +27,13 @@ function Sidabar() {
             </div>
 
             <div className='mt-4 overflow-y-auto flex-grow' id="scroll">
+                <div className='flex h-16 p-2 rounded-md mt-2 hover:bg-[#242424] cursor-pointer '>
+                        <img className='w-12 rounded-md' src={assets.liked_songs} alt="" />
+                        <div className='ml-2 flex flex-col gap-[3px] overflow-hidden'>
+                            <p className='text-sm whitespace-nowrap overflow-ellipsis overflow-hidden font-medium tracking-wider w-full'>Liked Songs</p>
+                            <p className='text-xs text-[#b3b3b3] whitespace-nowrap overflow-ellipsis overflow-hidden font-medium w-full mt-[2px]'>Playlist • 23</p>
+                        </div>
+                    </div>
                 {albumsData.map((item, id) => (
                     <div key={id} className='flex h-16 p-2 rounded-md mt-2 hover:bg-[#242424] cursor-pointer '>
                         <img className='w-12 rounded-md' src={item.image} alt="" />

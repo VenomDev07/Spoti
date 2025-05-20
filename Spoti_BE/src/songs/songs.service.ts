@@ -1,22 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary'
-import { songDto } from 'src/DTO/song.dto';
-import { Model } from 'mongoose';
-import { Song } from 'src/models/songModel';
-import { InjectModel } from '@nestjs/mongoose';
-import { error } from 'console';
+import { PrismaService } from 'src/prisma/prisma.service';
+
 @Injectable()
 export class SongsService {
     
-    constructor(@InjectModel(Song.name) private songModel: Model<Song>) {}   
+    constructor(private prisma: PrismaService) {}   
 
-    async CreatSong(data: any, files: {image ?: Express.Multer.File[], audio ?: Express.Multer.File[]}){
+    async CreatSong(data: any, files: {imageUrl ?: Express.Multer.File[], audioUrl ?: Express.Multer.File[], videoUrl ?: Express.Multer.File[]}){
         try{
-            const name = data.name;
-            const desc = data.desc;
-            const album = data.album;
-            const imageFile = files.image?.[0]; // Get the first file for 'image'
-            const audioFile = files.audio?.[0]; // Get the first file for 'audio'
+            const name = data.title;
+            const artistId = Number(data.artistId);
+            const albumId = Number(data.albumId);
+            const imageFile = files.imageUrl?.[0]; // Get the first file for 'image'
+            const audioFile = files.audioUrl?.[0]; // Get the first file for 'audio'
+            const video = files.videoUrl?.[0];
 
             const audioUpload:any = await new Promise((resolve, reject) => {
                 const uploadStream = cloudinary.uploader.upload_stream(
@@ -39,20 +37,36 @@ export class SongsService {
                     },
                 );
                 uploadStream.end(imageFile.buffer); // Pass the image buffer
-            });  
+            });
+
+            let videoUrl: string | null = null;
+            if(video){
+                const videoUpload:any = await new Promise((resolve, reject) => {
+                const uploadStream = cloudinary.uploader.upload_stream(
+                        { resource_type: 'video' }, // Use 'video' for audio files
+                        (error, result) => {
+                            if (error) return reject(error);
+                            resolve(result);
+                        },
+                    );
+                    uploadStream.end(video.buffer); // Pass the audio buffer
+                });
+                videoUrl = (videoUpload as any).secure_url;
+            }
             // Extract public URLs
             const audioUrl = (audioUpload as any).secure_url;
             const imageUrl = (imageUpload as any).secure_url;
-            const songData : songDto = {
-                name : name,
-                desc : desc,
-                album : album,
-                image : imageUrl,
-                file : audioUrl,
-                duration : duration
+            const songData = {
+                title : name,
+                albumId : albumId ? albumId : null,
+                artistId : artistId ,
+                imageUrl : imageUrl,
+                audioUrl : audioUrl,
+                duration : duration,
+                videoUrl : videoUrl || null
             }
-            const newSong = new this.songModel(songData);
-            const storedSong = await newSong.save()
+            
+            const storedSong = await this.prisma.song.create({data:songData})
             return storedSong
 
         }catch(err){
@@ -62,8 +76,13 @@ export class SongsService {
 
     async getAllSongs(){
         try{
-            const allSongs:any[] = await this.songModel.find({});
-            return allSongs;
+            const res = await this.prisma.song.findMany({
+                    include: {
+                    artist: true,
+                    album: true
+                }
+            });
+            return res
         }catch(err){
             console.log(err)        
         }
@@ -71,8 +90,8 @@ export class SongsService {
 
     async removeSong(id:string){
         try {
-            const removedSong = await this.songModel.findByIdAndDelete(id);
-            return removedSong ? {message : 'Song Deleted Successfully'} : {message : 'Song is Not Present'}
+            /* const removedSong = await this.songModel.findByIdAndDelete(id);
+            return removedSong ? {message : 'Song Deleted Successfully'} : {message : 'Song is Not Present'} */
              
         } catch (error) {
             console.log(error)        
@@ -81,15 +100,24 @@ export class SongsService {
 
     async getrandomSongs(){
         try{
-            const randomSongs = await this.songModel.aggregate([ // Gets Random and Unique (Not Duplicate) Songs
+            /* const randomSongs = await this.songModel.aggregate([ // Gets Random and Unique (Not Duplicate) Songs
                                                                     {$sample: {size:10}},
                                                                     { $group: { _id: "$_id", doc: { $first: "$$ROOT" } } },
                                                                     { $limit: 6 } 
                                                                   ])
             
-            return randomSongs
+            return randomSongs */
         }catch(err){
             console.error(err)
         }
+    }
+
+    async getSongByAlbumId(id:number){
+        const res = await this.prisma.song.findMany({
+            where: {
+                albumId:id
+            }
+        })
+        return res
     }
 }

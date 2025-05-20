@@ -8,8 +8,8 @@ export class AlbumsController {
     constructor(private albumService: AlbumsService){}
 
     @Post('/createAlbum')
-    @UseInterceptors(FileFieldsInterceptor([{name : 'image', maxCount : 1}]))
-    async createAlbum(@Body() data:any, @UploadedFiles() files: {image ?: Express.Multer.File[];}){
+    @UseInterceptors(FileFieldsInterceptor([{name : 'coverImage', maxCount : 1}]))
+    async createAlbum(@Body() data:any, @UploadedFiles() files: {coverImage ?: Express.Multer.File[];}){
         return await this.albumService.createAlbum(data,files);
     }
 
@@ -22,5 +22,10 @@ export class AlbumsController {
     @UseInterceptors(AnyFilesInterceptor())
     async removeAlbum(@Body() data:any){
         return this.albumService.removeAlbum(data.id);
+    }
+
+    @Post('getAlbumById')
+    async getAlbumById(@Body() data: any, ){
+        return await this.albumService.getAlbumById(data); 
     }
 }

@@ -1,21 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { v2 as cloudinary } from 'cloudinary';
-import { albumDto } from 'src/DTO/album.dto';
-import { Album } from 'src/models/albumModel';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AlbumsService {
-    constructor(@InjectModel(Album.name) private albumModel:Model<Album>){}
+    constructor(private prisma:PrismaService){}
 
-    async createAlbum(data:any, files: {image ?: Express.Multer.File[]}){
+    async createAlbum(data:any, files: {coverImage ?: Express.Multer.File[]}){
         try {
 
-            const desc = data.desc;
-            const bgColor = data.bgColor;
-            const imageFile = files.image?.[0];
-            const name =data.name 
+            const artistId = Number(data.artistId);
+            const releaseDate = data.releaseDate;
+            const imageFile = files.coverImage?.[0];
+            const title =data.title 
     
             const imageUpload = await new Promise((resolve, reject) => {
                 const uploadStream = cloudinary.uploader.upload_stream(
@@ -28,15 +25,14 @@ export class AlbumsService {
                 uploadStream.end(imageFile.buffer); // Pass the image buffer
             });
     
-            const albumData : albumDto = {
-                name: name,
-                desc,
-                bgColor,
-                image : (imageUpload as any).secure_url
+            const albumData = {
+                title : title,
+                releaseDate : releaseDate,
+                artistId : artistId,
+                coverImage : (imageUpload as any).secure_url
             }
     
-            const newAlbum = new this.albumModel(albumData);
-            const storedAlbum = await newAlbum.save();
+            const storedAlbum = await this.prisma.album.create({data:albumData})
             return storedAlbum;
         }catch (error) {
             console.log(error)
@@ -45,18 +41,32 @@ export class AlbumsService {
 
     async getAllAlbums(){
         try {
-            const AlbumsData = this.albumModel.find({})
-            return AlbumsData
+            const res = await this.prisma.album.findMany({
+                include:{
+                    artist:true
+                }
+            }); 
+           return res
         } catch (error) {
             console.log(error)
         }
+    }
 
+    async getAlbumById(data:{id:number}){
+        try {
+            const id = Number(data.id)
+            const res = this.prisma.artist.findMany({
+                where: {id : id}
+            })
+            return res
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     async removeAlbum(id:string){
         try {
-            const removedAlbum = await this.albumModel.findByIdAndDelete(id)
-            return removedAlbum ? {message : "Album removed Successfully"} : {message : "Album is Not Present"}
+         
         } catch (error) {
             
         }

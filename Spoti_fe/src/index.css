@@ -19,11 +19,15 @@ body{
 
 #scroll::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.319); /* Thumb color */
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
 #scroll::-webkit-scrollbar-track {
   background: transparent; /* Track color */
+}
+
+#scroll::-webkit-scrollbar:hover {
+  
 }
 
 /* ===================== SCROLL 2 ===================== */

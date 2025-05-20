@@ -1,16 +1,26 @@
-import { albumsData, assets, songsData } from '../assets/frontend-assets/assets'
+import { useContext, useEffect } from 'react'
+import { assets, songsData } from '../assets/frontend-assets/assets'
 import { useNavigate } from 'react-router-dom'
+import { PlayerContext } from '../Context/PlayerContext'
 
 function Home() {
+  
+  const {albumData, songData, artistData} = useContext(PlayerContext);
+  useEffect(() => {
+    if(albumData.length > 0){
+      conData.push(
+        {
+        img: albumData[0].coverImage,
+        name: "KK"
+        }
+      )
+    }
+  },[])
   const conData = [
     {
       img: assets.liked_songs,
       name: "Liked Songs"
     },
-    {
-      img: albumsData[0].image,
-      name: "KK"
-    }
   ]
   return (
     
@@ -36,9 +46,9 @@ function Home() {
 
 
       <div className='h-[90%] overflow-auto' id='scroll-2'>
-        <SongStackCompo name={'Made For Devendra'} arr={albumsData} type={'album'} />
-        <SongStackCompo name={'Recommended For Today'} arr={songsData} type={'song'}/>
-        <SongStackCompo name={'Discover Picks For You'} arr={albumsData} type={'album'}/>
+        <SongStackCompo name={'Made For Devendra'} arr={albumData} type={'album'} />
+        <SongStackCompo name={'Recommended For Today'} arr={songData} type={'song'}/>
+        <SongStackCompo name={'Discover Picks For You'} arr={albumData} type={'album'}/>
       </div>
     </div>
 
@@ -57,9 +67,9 @@ const SongStackCompo = ({name, arr, type}) => {
 
       <div className='h-[10%] flex overflow-auto mt-5 rounded-md' id='inv-scroll'>
         {arr.map((item, index) => (
-          <div key={index} onClick={() => {if(type == 'album'){ navigate(`album/${item.id}`)}else{ navigate(`/`)}}} className='h-full min-w-[177px] p-3 overflow-hidden cursor-pointer rounded-md hover:bg-[rgba(202,202,202,0.2)] '>
-            <img className='h-[100%] rounded-md' src={item.image} alt="" /> 
-            <p className='text-sm mt-2 text-[#b3b3b3] text-wrap text-ellipsis line-clamp-2  font-semibold w-full '>{item.desc}</p>
+          <div key={index} onClick={() => {type = "album" ? navigate(`album/${item.id}`) : navigate('/')}} className='h-full min-w-[177px] w-[177px] p-3 overflow-hidden cursor-pointer rounded-md hover:bg-[rgba(202,202,202,0.2)] '>
+            <img className='w-full rounded-md' src={(type = 'album'?item.coverImage:item.imageUrl)} alt="" /> 
+            <p className='text-sm mt-2 text-[#b3b3b3] text-wrap text-ellipsis line-clamp-2  font-semibold w-full '>{item.title}</p>
           </div>
         ))}
       </div>

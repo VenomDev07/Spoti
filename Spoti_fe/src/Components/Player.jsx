@@ -1,35 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { albumsData, assets } from '../assets/frontend-assets/assets'
+import { useContext } from 'react'
+import { PlayerContext } from '../Context/PlayerContext'
 
 function Player() {
-  const [play, setPlay] = useState(false)
+
+  const {track, audioRef, playStatus, play, pause, previous, next, seekBg, seekBar, seekSong, time} = useContext(PlayerContext)
+
+
+  useEffect(() => {
+    
+  },[track])
+
+
   return (
     <div id='playerGrid'>
         <div className='flex p-3 items-center h-full' id='songInfo'>
-          <img className='w-12 rounded-md' src={albumsData[0].image} alt="" />
+          <img className='w-12 rounded-md' src={track?.imageUrl} alt="" />
           <div className='ml-2 overflow-hidden'>
-            <p className='text-sm font-semibold whitespace-nowrap overflow-ellipsis overflow-hidden w-full'>{albumsData[0].name}</p>
-            <p className='text-xs font-semibold text-[#b3b3b3] whitespace-nowrap overflow-ellipsis overflow-hidden w-full'>{albumsData[0].desc}</p>
+            <p className='text-sm font-semibold whitespace-nowrap overflow-ellipsis overflow-hidden w-full'>{track?.title}</p>
+            <p className='text-xs font-semibold text-[#b3b3b3] whitespace-nowrap overflow-ellipsis overflow-hidden w-full'>{track?.artist?.name || "Unknown Artist"}</p>
           </div>
         </div>
         <div id='player'>
           <div className='flex flex-col  h-full'>
             <div className='h-[55%] bg-black inline-flex gap-5 justify-center items-center pt-4'>
               <img className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.shuffle_icon} alt="" />
-              <img className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.prev_icon} alt="" />
-              {play ? <img onClick={() => setPlay(false)} className='w-[18px] h-[18px] cursor-pointer hover:scale-[1.05] ' src={assets.pause_icon} alt="" />  :
-                      <img onClick={() => setPlay(true)} className='w-[18px] h-[18px] cursor-pointer hover:scale-[1.05] ' src={assets.play_icon} alt="" />
+              <img onClick={previous} className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.prev_icon} alt="" />
+              {playStatus ? <img onClick={pause} className='w-[18px] h-[18px] cursor-pointer hover:scale-[1.05] ' src={assets.pause_icon} alt="" />  :
+                            <img onClick={play} className='w-[18px] h-[18px] cursor-pointer hover:scale-[1.05] ' src={assets.play_icon} alt="" />
               }
               
-              <img className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.next_icon} alt="" />
+              <img onClick={next} className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.next_icon} alt="" />
               <img className='w-4 h-4 cursor-pointer hover:scale-[1.05]' src={assets.loop_icon} alt="" />
             </div>
             <div className='inline-flex h-[45%] justify-center gap-2 bg-black items-center '>
-              <p className='text-xs text-[#b3b3b3] font-medium'>0:00</p>
-              <div className='inline-flex h-[3.4px] w-[68%] rounded-full bg-gray-500 player-parent cursor-pointer'>
-                <div className='inline-flex h-[3.4px] w-[80%] rounded-full bg-white player-child hover:bg-green-400 '></div>
+              <p className='text-xs text-[#b3b3b3] font-medium'>{time.currentTime.minute}:{time.currentTime.second}</p>
+              <div ref={seekBg} onClick={seekSong} className='inline-flex h-[3.4px] w-[68%] rounded-full bg-gray-500 player-parent cursor-pointer'>
+                <div ref={seekBar} className='inline-flex h-[3.4px] w-[0%] rounded-full bg-white player-child hover:bg-green-400 '></div>
               </div>
-              <p className='text-xs text-[#b3b3b3] font-medium'>4:34</p>
+              <p className='text-xs text-[#b3b3b3] font-medium'>{time.totalTime.minute}:{time.totalTime.second}</p>
             </div>
           </div>
         </div>
@@ -47,7 +57,9 @@ function Player() {
             <img className='w-4 cursor-pointer hover:scale-[1.05]' src={assets.zoom_icon} alt="" />
           </div>
         </div>
+        <audio ref={audioRef} src={track ? track.audioUrl : null} preload='auto'></audio>
     </div>
+
   )
 }
 

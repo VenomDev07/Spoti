@@ -5,13 +5,15 @@ import { PlaylistsController } from './playlists/playlists.controller';
 import { PlaylistsService } from './playlists/playlists.service';
 import { ConfigModule } from '@nestjs/config';
 import { CloudinaryService } from './cloudinary-service/cloudinary-service.service';
-import { MongooseModule } from '@nestjs/mongoose';
 import { SongsModule } from './songs/songs.module';
 import { AlbumsModule } from './albums/albums.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { ArtistsController } from './artists/artists.controller';
+import { ArtistsModule } from './artists/artists.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({isGlobal:true}), ConfigModule.forRoot({ isGlobal: true }),MongooseModule.forRoot("mongodb+srv://venomdev07:DEV07@cluster0.yae4t.mongodb.net/Spotify"), AlbumsModule,SongsModule,],
-  controllers: [AppController, PlaylistsController],
+  imports: [ConfigModule.forRoot({isGlobal:true}), ConfigModule.forRoot({ isGlobal: true }), AlbumsModule,SongsModule,PrismaModule, ArtistsModule],
+  controllers: [AppController, PlaylistsController, ArtistsController],
   providers: [AppService, PlaylistsService, CloudinaryService, CloudinaryService,],
   exports: [PlaylistsService],
 })

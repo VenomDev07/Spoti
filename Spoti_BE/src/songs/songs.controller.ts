@@ -7,8 +7,8 @@ export class SongsController {
     constructor(private songService: SongsService) {}
 
     @Post('/addSong')
-    @UseInterceptors(FileFieldsInterceptor([{name : 'image', maxCount : 1},{name : 'audio', maxCount : 1}]))
-    async CreatSong(@Body() data:any, @UploadedFiles() files: {image ?: Express.Multer.File[]; audio ?: Express.Multer.File[];}) {
+    @UseInterceptors(FileFieldsInterceptor([{name : 'imageUrl', maxCount : 1},{name : 'audioUrl', maxCount : 1},{name : 'videoUrl', maxCount : 1}]))
+    async CreatSong(@Body() data:any, @UploadedFiles() files: {imageUrl ?: Express.Multer.File[]; audioUrl ?: Express.Multer.File[]; videoUrl ?: Express.Multer.File[];}) {
         return await this.songService.CreatSong(data, files);
     }
 
@@ -32,24 +32,14 @@ export class SongsController {
         }  
     }
 
-    @Delete('/discardSong')
-    async discardSing(@Body() data: string){
-        return data
+    @Post('/getSongByAlbumId')
+    async getSongByAlbumId(@Body() data:{id:string}){
+        try {
+            return this.songService.getSongByAlbumId(Number(data.id))
+        } catch (error) {
+            
+        }
     }
 
-    @Post('/songTesting')
-    async songTesting(@Body() data:any){
-        return data
-    }
-
-    @Put('/songtestingPut')
-    async songtestingPut(@Body() data:any){
-        return {data : data.data}
-    }
-
-    @Patch('/songtestingPatch')
-    async songtestingPatch(@Body() data:any){
-        return {data : data.data}
-    }
 
 }
